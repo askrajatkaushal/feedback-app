@@ -1,0 +1,42 @@
+<div class="row" data-ng-controller="UsersCtrl">
+    <div class="col-lg-12">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <strong>Current User</strong>
+            </div>
+            <div class="panel-body">
+                <h4>{{currentUser.firstname}} {{currentUser.lastname}}</h4>
+
+                <p>
+                    <small>
+                        {{currentUser.email}}
+                    </small>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-12">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <strong>Users</strong>
+            </div>
+            <div class="panel-body">
+
+                <dl>
+                    <dt pagination-id="users" dir-paginate-start="user in users | itemsPerPage: limit" total-items="total" current-page="page">
+                        {{user.firstname}} {{user.lastname}}
+                    </dt>
+                    <dd>
+                        <small>
+                            {{user.email}}
+                        </small>
+                    </dd>
+                    <hr dir-paginate-end/>
+                </dl>
+                <dir-pagination-controls pagination-id="users" template-url="../lib/pagination/dirPagination.tpl.html" on-page-change="pageChanged(newPageNumber)">
+                </dir-pagination-controls>
+            </div>
+        </div>
+    </div>
+</div>
