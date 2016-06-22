@@ -1,0 +1,43 @@
+<h2 style="text-align:center">Questions</h2>
+<br>
+<h5 class="pull-right">Add New Question : <a href="newquest.html">Click Here </a></h5>
+<div class="container" data-ng-controller="QuestionnaireCtrl">
+    <div class="table-responsive">
+        <table id="example" class="table table-striped table-bordered table-hover table-responsive" cellspacing="0" width="100%">
+            <thead>
+                <tr>
+                    <th>
+                        Question
+                    </th>
+                    <th>
+                        Question Type
+                    </th>
+
+                    <th>
+                        Edit
+                    </th>
+                    <th>
+                        Delete
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr data-ng-repeat="question in questions">
+                    <td>
+                        {{ question.text }}
+                    </td>
+                    <td>
+                        {{ question.type }}
+                    </td>
+
+                    <td>
+                        <a href="editQuestion.html">Edit Question</a>
+                    </td>
+                    <td>
+                        <a href="#">Delete</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
