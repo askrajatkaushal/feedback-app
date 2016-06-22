@@ -30,10 +30,13 @@ angular.module('angularRestfulAuth', [
                 templateUrl: 'partials/questions.html',
                 controller: 'HomeCtrl'
             }).
+<<<<<<< HEAD
             when('/questionnaire', {
                 templateUrl: 'partials/questionnaire.html',
                 controller: 'HomeCtrl'
             }).
+=======
+>>>>>>> bea17fdb389e18ecbbfd2d92dec02a1774c34910
             otherwise({
                 redirectTo: '/'
             });

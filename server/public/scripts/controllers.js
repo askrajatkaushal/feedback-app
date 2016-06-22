@@ -3,7 +3,11 @@
 /* Controllers */
 
 angular.module('angularRestfulAuth')
+<<<<<<< HEAD
     .controller('HomeCtrl', ['$rootScope', '$scope', '$location', '$localStorage', 'MainService', 'ResourceFactory', function ($rootScope, $scope, $location, $localStorage, MainService, ResourceFactory) {
+=======
+    .controller('HomeCtrl', ['$rootScope', '$scope', '$location', '$localStorage', 'MainService', 'AuthenticationService', 'SignupService', function ($rootScope, $scope, $location, $localStorage, MainService, AuthenticationService, SignupService) {
+>>>>>>> bea17fdb389e18ecbbfd2d92dec02a1774c34910
         var changeLocation = function (url, replace, forceReload) {
             $scope = $scope || angular.element(document).scope();
             if (forceReload || $scope.$$phase) {
@@ -16,6 +20,10 @@ angular.module('angularRestfulAuth')
                 $location.path(url);
 
             }
+<<<<<<< HEAD
+=======
+
+>>>>>>> bea17fdb389e18ecbbfd2d92dec02a1774c34910
         };
 
         $scope.signin = function () {
@@ -26,7 +34,11 @@ angular.module('angularRestfulAuth')
                 }
             };
 
+<<<<<<< HEAD
             ResourceFactory.users().get(inData).then(function (res) {
+=======
+            AuthenticationService.get(inData).then(function (res) {
+>>>>>>> bea17fdb389e18ecbbfd2d92dec02a1774c34910
                 console.log("Signing in.");
 
                 if (res.type == false) {
@@ -53,7 +65,11 @@ angular.module('angularRestfulAuth')
                 }
             };
 
+<<<<<<< HEAD
             ResourceFactory.signup().create(inData).then(function (res) {
+=======
+            SignupService.create(inData).then(function (res) {
+>>>>>>> bea17fdb389e18ecbbfd2d92dec02a1774c34910
                 if (res.type == false) {
                     alert(res.data)
                 } else {
@@ -78,13 +94,21 @@ angular.module('angularRestfulAuth')
         $rootScope.token = $localStorage.token;
     }])
 
+<<<<<<< HEAD
 .controller('UsersCtrl', ['$rootScope', '$scope', '$location', 'MainService', 'ResourceFactory', function ($rootScope, $scope, $location, MainService, ResourceFactory) {
+=======
+.controller('UsersCtrl', ['$rootScope', '$scope', '$location', 'MainService', 'UsersService', function ($rootScope, $scope, $location, MainService, UsersService) {
+>>>>>>> bea17fdb389e18ecbbfd2d92dec02a1774c34910
     $scope.total = 0;
     $scope.page = 1;
     $scope.limit = 5;
 
     $scope.pageChanged = function (newPage) {
+<<<<<<< HEAD
         ResourceFactory.users().findAll({
+=======
+        UsersService.findAll({
+>>>>>>> bea17fdb389e18ecbbfd2d92dec02a1774c34910
             page: newPage,
             limit: $scope.limit
         }).then(function (res) {
@@ -105,13 +129,22 @@ angular.module('angularRestfulAuth')
 
     }])
 
+<<<<<<< HEAD
 .controller('QuestionsCtrl', ['$rootScope', '$scope', '$location', 'ResourceFactory', function ($rootScope, $scope, $location, ResourceFactory) {
+=======
+.controller('QuestionsCtrl', ['$rootScope', '$scope', '$location', 'QuestionsService', function ($rootScope, $scope, $location, QuestionsService) {
+>>>>>>> bea17fdb389e18ecbbfd2d92dec02a1774c34910
     $scope.total = 0;
     $scope.page = 1;
     $scope.limit = 5;
 
+<<<<<<< HEAD
 
     ResourceFactory.questions().findAll().then(function (res) {
+=======
+/*
+    QuestionsService.findAll().then(function (res) {
+>>>>>>> bea17fdb389e18ecbbfd2d92dec02a1774c34910
             $scope.questions = res.data.questions;
             var meta = res.data.meta;
             $scope.meta = meta;
@@ -123,6 +156,7 @@ angular.module('angularRestfulAuth')
             $rootScope.error = 'Failed to fetch questions';
         }
     );
+<<<<<<< HEAD
 
     $scope.pageChanged = function (newPage) {
         ResourceFactory.questions().then(function(resourceResponse) {
@@ -136,20 +170,41 @@ angular.module('angularRestfulAuth')
             }, function () {
                 $rootScope.error = 'Failed to fetch questions';
             });
+=======
+*/
+
+    $scope.pageChanged = function (newPage) {
+        QuestionsService.findAll(newPage, $scope.limit).then(function (res) {
+            $scope.questions = res.data.questions;
+            var meta = res.data.meta;
+            $scope.meta = meta;
+            $scope.limit = meta.limit;
+            $scope.total = meta.total;
+            $scope.page = meta.page;
+        }, function () {
+            $rootScope.error = 'Failed to fetch questions';
+>>>>>>> bea17fdb389e18ecbbfd2d92dec02a1774c34910
         });
     };
 
     $scope.pageChanged($scope.page, $scope.limit);
 }])
 
+<<<<<<< HEAD
 .controller('QuestionnaireCtrl', ['$rootScope', '$scope', 'ResourceFactory', function ($rootScope, $scope, ResourceFactory) {
 /*
     $scope.setQID = function (qID) {
         ResourceFactory.setID(qID);
+=======
+.controller('QuestionnaireCtrl', ['$rootScope', '$scope', 'QuestionnaireService', function ($rootScope, $scope, QuestionnaireService) {
+    $scope.setQID = function (qID) {
+        QuestionnaireService.set(qID);
+>>>>>>> bea17fdb389e18ecbbfd2d92dec02a1774c34910
         $location.path("/questionnaire/details");
         //        console.log(qID);
     };
 
+<<<<<<< HEAD
     var qID = ResourceFactory.getID();
     console.log(qID);
     var questionnaires;
@@ -173,4 +228,48 @@ angular.module('angularRestfulAuth')
         console.log("Selected Questionnaire: ", selectedQstnr);
         $scope.questions = selectedQstnr.questions;
     });
+=======
+    var qID = QuestionnaireService.get();
+    console.log(qID);
+    var questionnaires;
+    var actualQuestions = [];
+
+    QuestionnaireService.find(qID).then(function (selectedQstnr) {
+        console.log("Selected Questionnaire: ", selectedQstnr);
+        $scope.questions = selectedQstnr.questions;
+    });
+
+    /*
+        MainService.questionnaires().then(function (res) {
+            questionnaires = res.data.questionnaires;
+            console.log(JSON.stringify(questionnaires));
+        }, function () {
+            questionnaires = null;
+        });
+
+        console.log(JSON.stringify(actualQuestions));
+
+        for (var i in questionnaires) {
+            var quest = {
+                questions: {
+                    id: questionnaires[i].id,
+                }
+            };
+
+            console.log(quest);
+
+            MainService.selectedQuestion(quest).then(function (res) {
+                if (res.type == false) {
+                    alert(res.data)
+                } else {
+                    actualQuestions.push(res.data.questions);
+                }
+            }, function () {
+                $rootScope.error = 'Failed to Fetch Questions';
+            });
+        }
+
+        $scope.questions = actualQuestions;
+    */
+>>>>>>> bea17fdb389e18ecbbfd2d92dec02a1774c34910
 }]);
